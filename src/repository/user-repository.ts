@@ -1,4 +1,4 @@
-import { IUser, User } from "src/models/user-model";
+import { IUser, User } from "../models/user-model";
 
 const userRepository = () => {
     const createUser = async ({ email, name, password }: IUser) => {
@@ -35,8 +35,15 @@ const userRepository = () => {
             },
         });
     };
+    const deleteUserById =async({id}:IUser)=>{
+        await User.delete({
+            where:{
+                id
+            },
+        });
+    };
     return {
-        createUser,getUsers,getUserById,getUserByEmailAndPassword,updateUserById
+        createUser,getUsers,getUserById,getUserByEmailAndPassword,updateUserById,deleteUserById
     }
 };
-export default userRepository;
+export default userRepository();
