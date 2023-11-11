@@ -5,7 +5,7 @@ const userRepository = () => {
         await User.create({
             data: {
                 email, name, password
-            }
+            },
         })
     };
     const getUsers = async () => {
@@ -15,11 +15,28 @@ const userRepository = () => {
         await User.findUnique({
             where: {
                 id:id,
-            }
+            },
         })
     };
+    const getUserByEmailAndPassword =async ({email,password}:IUser) => {
+        await User.findFirst({
+            where:{
+                email,password,
+            },
+        })
+    };
+    const updateUserById =async ({id,email,name,password}:IUser) => {
+        await User.update({
+            where:{
+                id
+            },
+            data: {
+                email,name,password
+            },
+        });
+    };
     return {
-        createUser,getUsers
+        createUser,getUsers,getUserById,getUserByEmailAndPassword,updateUserById
     }
 };
 export default userRepository;
